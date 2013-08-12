@@ -706,6 +706,12 @@ ScreenshotClient::~ScreenshotClient() {
     ScreenshotClient::release();
 }
 
+// Needed for old Sprint ril
+status_t ScreenshotClient::update() {
+    sp<ISurfaceComposer> sm(ComposerService::getComposerService());
+    return update(sm->getBuiltInDisplay(0));
+}
+
 sp<CpuConsumer> ScreenshotClient::getCpuConsumer() const {
     if (mCpuConsumer == NULL) {
         mCpuConsumer = new CpuConsumer(1);
